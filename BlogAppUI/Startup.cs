@@ -20,6 +20,7 @@ namespace BlogAppUI
         {
             services.AddControllersWithViews();
             services.AddHttpClient<IBlogApiService, BlogApiManager>();
+            services.AddHttpClient<IImageApiService, ImageApiManager>();
             services.AddHttpClient<ICategoryApiService, CategoryApiManager>();
         }
 

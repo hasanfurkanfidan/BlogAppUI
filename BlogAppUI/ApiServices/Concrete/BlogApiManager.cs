@@ -31,10 +31,9 @@ namespace BlogAppUI.ApiServices.Concrete
         public async Task<BlogListModel> GetByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"blogs/{id}");
-            var imageResponse = await _httpClient.GetAsync($"/Images/GetBlogImageById/{id}");
-            if (response.IsSuccessStatusCode&&imageResponse.IsSuccessStatusCode)
+            
+            if (response.IsSuccessStatusCode)
             {
-                var image = JsonConvert.DeserializeObject<BlogListModel>(await response.Content.ReadAsStringAsync());
                 var result = JsonConvert.DeserializeObject<BlogListModel>(await response.Content.ReadAsStringAsync());
                 return result;
             }
