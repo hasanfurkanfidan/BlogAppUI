@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogAppUI.ApiServices.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAppUI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IBlogApiService _blogApiService;
+        public HomeController(IBlogApiService blogApiService)
         {
-            return View();
+            _blogApiService = blogApiService;
+        }
+        public async Task< IActionResult> Index()
+        {
+            var blogs =await _blogApiService.GetAllAsync( );
+            return View(blogs);
+        }
+        public async Task<IActionResult>Detail(int id)
+        {
+            var blog = await _blogApiService.GetByIdAsync(id);
+            return View(blog);
         }
     }
 }
