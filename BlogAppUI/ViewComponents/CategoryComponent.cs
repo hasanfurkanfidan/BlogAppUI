@@ -16,7 +16,7 @@ namespace BlogAppUI.ViewComponents
         }
         public  IViewComponentResult Invoke()
         {
-            var categories = _categoryApiService.GetAll().Result;
+            var categories = _categoryApiService.GetCategoryWithBlogs().Result;
             return  View(categories);
         }
     }

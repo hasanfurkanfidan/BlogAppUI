@@ -3,18 +3,19 @@
 *@
 @{
 }
-@model List<CategoryListModel>
+@model List<CategoryWithBlogsViewModel>
     <div class="card my-4">
         <h5 class="card-header">Categories</h5>
-        <ul class="list-group">
+        <div class="list-group">
             @foreach (var category in Model)
             {
-                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    @category.Name
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
+                <a asp-action="Index" asp-controller="Home"  asp-route-categoryId="@category.Id"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center @(ViewBag.ActiveCategory?.ToString()==category.Id.ToString()?"active":"")" >
+                    @category.Name 
+                    <span class="badge badge-dark badge-pill">@category.BlogsCount</span>
+                    
+                </a>
             }
 
 
-        </ul>
+        </div>
     </div>

@@ -14,15 +14,26 @@ namespace BlogAppUI.Controllers
         {
             _blogApiService = blogApiService;
         }
-        public async Task< IActionResult> Index()
+        public async Task< IActionResult> Index(int? categoryId)
         {
-            var blogs =await _blogApiService.GetAllAsync( );
-            return View(blogs);
+            if (categoryId.HasValue)            
+            {
+                var blogs = await _blogApiService.GetAllWithCategoryIdAsync(categoryId);
+                ViewBag.ActiveCategory = categoryId;
+                return View(blogs);
+            }
+            else
+            {
+                var blogs = await _blogApiService.GetAllAsync();
+                return View(blogs);
+            }
+          
         }
         public async Task<IActionResult>Detail(int id)
         {
             var blog = await _blogApiService.GetByIdAsync(id);
             return View(blog);
         }
+       
     }
 }

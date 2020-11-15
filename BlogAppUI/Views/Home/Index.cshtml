@@ -4,6 +4,13 @@
 @{
 }
 @model List<BlogListModel>
+@if (ViewBag.ActiveCategory != null)
+{
+    <div class='border border-dark p-3 mb-2'>
+        <getcategoryname id="@ViewBag.ActiveCategory"></getcategoryname> <a asp-action="Index">Filteyi Kaldır</a>
+    </div>
+}
+
 @foreach (var blog in Model)
 {
     <div class="card mb-4">
@@ -19,3 +26,4 @@
         </div>
     </div>
 }
+

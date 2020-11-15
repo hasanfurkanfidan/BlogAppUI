@@ -8,6 +8,7 @@ namespace BlogAppUI.ApiServices.Abstract
 {
     public interface ICategoryApiService
     {
-       Task<List<CategoryListModel>> GetAll();
+        Task<List<CategoryListModel>> GetAll();
+        Task<List<CategoryWithBlogsViewModel>> GetCategoryWithBlogs();
     }
 }
