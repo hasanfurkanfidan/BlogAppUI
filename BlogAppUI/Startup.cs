@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogAppUI.ApiServices.Abstract;
 using BlogAppUI.ApiServices.Concrete;
+using BlogAppUI.Filters;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,13 +22,13 @@ namespace BlogAppUI
         {
             services.AddSession();
             services.AddControllersWithViews();
-          
+            services.AddScoped(typeof(JwtAuthorize));
             services.AddHttpContextAccessor();
             services.AddHttpClient<IBlogApiService, BlogApiManager>();
             services.AddHttpClient<IImageApiService, ImageApiManager>();
             services.AddHttpClient<ICategoryApiService, CategoryApiManager>();
             services.AddHttpClient<IAuthApiService, AuthApiManager>();
-          
+        
 
         }
 
@@ -40,10 +42,11 @@ namespace BlogAppUI
             }
             app.UseSession();
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute(name: "areas", pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: default, pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
