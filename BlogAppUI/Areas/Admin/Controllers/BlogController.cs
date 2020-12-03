@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogAppUI.ApiServices.Abstract;
 using BlogAppUI.Filters;
+using BlogAppUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAppUI.Areas.Admin.Controllers
@@ -21,6 +22,14 @@ namespace BlogAppUI.Areas.Admin.Controllers
         {
             var blogs =await _blogApiService.GetAllAsync();
             return View(blogs);
+        }
+        public IActionResult Create()
+        {
+            return View(new BlogAddModel());
+        }
+        public async Task< IActionResult> Create(BlogAddModel model)
+        {
+            return View();
         }
     }
 }

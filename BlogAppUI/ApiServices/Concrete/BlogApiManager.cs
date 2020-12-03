@@ -1,5 +1,7 @@
 ﻿using BlogAppUI.ApiServices.Abstract;
+using BlogAppUI.Extentions;
 using BlogAppUI.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,11 @@ namespace BlogAppUI.ApiServices.Concrete
     public class BlogApiManager : IBlogApiService
     {
         private readonly HttpClient _httpClient;
-        public BlogApiManager(HttpClient httpClient)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public BlogApiManager(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
+            _httpContextAccessor = httpContextAccessor;
             _httpClient.BaseAddress = new Uri("http://localhost:59229/api/blogs");
         }
         public async Task<List<BlogListModel>> GetAllAsync()
@@ -49,6 +53,28 @@ namespace BlogAppUI.ApiServices.Concrete
                 return result;
             }
             return null;
+        }
+        public async Task AddAsync(BlogAddModel model)
+        {
+            MultipartFormDataContent formData = new MultipartFormDataContent();
+            if (model.Image != null)
+            {
+                var bytes = await System.IO.File.ReadAllBytesAsync(model.Image.FileName);
+                ByteArrayContent byteArrayContent = new ByteArrayContent(bytes);
+                byteArrayContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(model.Image.ContentType);
+                formData.Add(byteArrayContent, nameof(model.Image.Name), model.Image.FileName);
+
+            }
+            var user = _httpContextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
+            model.AppUserId = user.Id;
+            formData.Add(new StringContent(model.AppUserId.ToString()), nameof(model.AppUserId));
+            formData.Add(new StringContent(model.ShortDescription), nameof(model.ShortDescription));
+            formData.Add(new StringContent(model.Description), nameof(model.Description));
+            formData.Add(new StringContent(model.Title), nameof(model.Title));
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("Token"));
+            await _httpClient.PostAsync("", formData);
+
+
         }
     }
 }
