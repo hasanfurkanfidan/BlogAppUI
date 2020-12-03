@@ -27,9 +27,15 @@ namespace BlogAppUI.Areas.Admin.Controllers
         {
             return View(new BlogAddModel());
         }
+        [HttpPost]
         public async Task< IActionResult> Create(BlogAddModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                await _blogApiService.AddAsync(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
     }
 }

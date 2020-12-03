@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BlogAddModel
+
+<form method="post" asp-action="Create" class="p-3" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="@Model.Title"></label>
+        <span asp-validation-for="@Model.Title"></span>
+        <input class="form-control" asp-for="@Model.Title" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShortDescription"></label>
+        <span asp-validation-for="@Model.ShortDescription"></span>
+        <textarea asp-for="@Model.ShortDescription" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description"></label>
+        <span asp-validation-for="@Model.Description"></span>
+        <textarea asp-for="@Model.Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Image"></label>
+        <input type="file" asp-for="@Model.Image" class="form-control" />
+    </div>
+     <div class="form-group">
+         <button class="btn btn-primary">Ekle</button>
+     </div>
+</form>
