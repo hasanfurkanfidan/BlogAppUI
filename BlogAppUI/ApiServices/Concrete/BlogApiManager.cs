@@ -47,7 +47,7 @@ namespace BlogAppUI.ApiServices.Concrete
 
         public async Task<BlogListModel> GetByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"blogs/{id}");
+            var response = await _httpClient.GetAsync($""+id.ToString());
 
             if (response.IsSuccessStatusCode)
             {
@@ -124,6 +124,7 @@ namespace BlogAppUI.ApiServices.Concrete
             formData.Add(content: new StringContent(model.ShortDescription), nameof(BlogUpdateModel.ShortDescription));
             formData.Add(content: new StringContent(model.Description), nameof(BlogUpdateModel.Description));
             formData.Add(content: new StringContent(model.Id.ToString()), nameof(BlogUpdateModel.Id));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("token"));
             var response = _httpClient.PutAsync($"" + model.Id, formData);
 
         }
