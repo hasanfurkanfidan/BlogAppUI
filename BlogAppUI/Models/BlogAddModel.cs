@@ -19,6 +19,7 @@ namespace BlogAppUI.Models
         [Display(Name = "Açıklama")]
         public string Description { get; set; }
         public int AppUserId { get; set; }
+        [Display(Name ="Resimi Seçiniz:")]
         public IFormFile Image { get; set; }
     }
 }

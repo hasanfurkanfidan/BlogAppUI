@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BlogUpdateModel
+
+<form class="p-3" asp-action="Update" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Title"></label>
+        <span class="text-danger" asp-validation-for="@Model.Title"></span>
+        <input class="form-control" asp-for="@Model.Title" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShortDescription"></label>
+        <span asp-validation-for="@Model.ShortDescription" class="text-danger"></span>
+        <textarea asp-for="@Model.ShortDescription" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description"></label>
+        <span asp-validation-for="@Model.Description"></span>
+        <textarea asp-for="@Model.Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Image"></label>
+        <input class="form-control-file" asp-for="@Model.Image" />
+    </div>
+    <input asp-for="@Model.Id" />
+    <div class="form-group">
+        <button class="btn btn-success">Güncelle</button>
+    </div>
+</form>
+@section Css{
+    <link href="~/TextEditors/Trumbowyg/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+}
+@section Javascript{
+    <script src="~/TextEditors/Trumbowyg/dist/trumbowyg.min.js"></script>
+    <script>
+         $("#Description").trumbowyg();
+    </script>
+}

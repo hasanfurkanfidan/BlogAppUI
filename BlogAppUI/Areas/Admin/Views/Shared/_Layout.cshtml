@@ -15,7 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/Themes/Admin/AdminTheme/css/simple-sidebar.css" rel="stylesheet">
-
+    @RenderSection("Css",false)
 </head>
 
 <body>
@@ -79,7 +79,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="/jquery/jquery.min.js"></script>
     <script src="/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    @RenderSection("Javascript",false)
     <!-- Menu Toggle Script -->
     <script>
         $("#menu-toggle").click(function (e) {

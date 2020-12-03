@@ -25,7 +25,16 @@
         <label asp-for="@Model.Image"></label>
         <input type="file" asp-for="@Model.Image" class="form-control" />
     </div>
-     <div class="form-group">
-         <button class="btn btn-primary">Ekle</button>
-     </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Ekle</button>
+    </div>
 </form>
+@section Css{
+    <link href="~/TextEditors/Trumbowyg/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+}
+@section Javascript{
+    <script src="~/TextEditors/Trumbowyg/dist/trumbowyg.min.js"></script>
+     <script>
+         $("#Description").trumbowyg();
+     </script>
+}

@@ -17,9 +17,10 @@
         <tr>
             <td> @item.Id</td>
             <td>@item.Title</td>
-            <td><a class="btn btn-danger">Sil</a></td>
-            <td><a class="btn btn-success">Güncelle</a></td>
+            <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a></td>
+            <td><a class="btn btn-success" asp-action="Update" asp-route-id="@item.Id">Güncelle</a></td>
         </tr>
 
     }
 </table>
+<a class="btn btn-primary" asp-action="Create">Blog Ekle</a>

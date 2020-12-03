@@ -18,9 +18,9 @@ namespace BlogAppUI.Areas.Admin.Controllers
         {
             _blogApiService = blogApiService;
         }
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            var blogs =await _blogApiService.GetAllAsync();
+            var blogs = await _blogApiService.GetAllAsync();
             return View(blogs);
         }
         public IActionResult Create()
@@ -28,7 +28,7 @@ namespace BlogAppUI.Areas.Admin.Controllers
             return View(new BlogAddModel());
         }
         [HttpPost]
-        public async Task< IActionResult> Create(BlogAddModel model)
+        public async Task<IActionResult> Create(BlogAddModel model)
         {
             if (ModelState.IsValid)
             {
@@ -36,6 +36,34 @@ namespace BlogAppUI.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _blogApiService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Update(int id)
+        {
+            var blog = await _blogApiService.GetByIdAsync(id);
+            var model = new BlogUpdateModel();
+            model.Description = blog.Description;
+            model.Id = blog.Id;
+            model.ShortDescription = blog.ShortDescription;
+            model.Title = blog.Description;
+            model.Image = blog.Image;
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(BlogUpdateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _blogApiService.UpdateAsync(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+
         }
     }
 }

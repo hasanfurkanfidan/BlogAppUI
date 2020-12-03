@@ -13,5 +13,7 @@ namespace BlogAppUI.ApiServices.Abstract
         Task<List<BlogListModel>> GetAllWithCategoryIdAsync(int? id);
         Task AddAsync(BlogAddModel model);
 
+        Task UpdateAsync(BlogUpdateModel model);
+        Task DeleteAsync(int id);
     }
 }

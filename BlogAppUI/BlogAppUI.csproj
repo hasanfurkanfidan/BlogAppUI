@@ -8,4 +8,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\TextEditors\Trumbowyg\.github\FUNDING.yml" />
+    <None Include="wwwroot\TextEditors\Trumbowyg\.github\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+
 </Project>
